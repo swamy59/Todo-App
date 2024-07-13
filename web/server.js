@@ -1,14 +1,16 @@
 const express = require('express');
+require('dotenv').config();
+console.log(process.env.DB_USER, "hi");
 const mysql = require('mysql2/promise');
 const app = express();
 const port = 3000;
 app.use(express.json());
 app.use(express.static('public'));
 const dbConfig = {
-   host: 'localhost',
-   user: 'swami',
-   password: 'swami',
-   database: 'taskdb',
+   host: process.env.DB_HOST,
+   user: process.env.DB_USER,
+   password: process.env.DB_PASSWORD,
+   database: process.env.DB_NAME,
 };
 app.get('/tasks', async (req, res) => {
    const connection = await mysql.createConnection(dbConfig);
