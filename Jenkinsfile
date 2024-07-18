@@ -25,7 +25,7 @@ pipeline{
         stage("push"){
             steps{
                 script{
-                    docker.withRegistry('swamy59', 'Dockercreds') {
+                    docker.withRegistry('swamy59', 'dockercreds') {
                         docker.image("${env.REGISTRY}/${env.IMAGE_NAME}:${env.VERSION}").push()
                     }
                 }
