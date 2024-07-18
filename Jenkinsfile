@@ -18,7 +18,7 @@ pipeline{
         stage('file'){
             steps{
                 script{
-                    docker.build("${env.REGISTRY}/${env.IMAGE_NAME}:${env.VERSION}")
+                    docker.build("${env.REGISTRY}/${env.IMAGE_NAME}:${env.VERSION}","./web")
                 }
             } 
             }
