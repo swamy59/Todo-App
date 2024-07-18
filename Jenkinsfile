@@ -17,7 +17,9 @@ pipeline{
         }
         stage('Install dependencies'){
             steps{
-                sh 'npm install'
+                sh '''
+                cd web
+                npm install'''
             }
         }
         stage('build'){
@@ -28,7 +30,7 @@ pipeline{
         stage('file'){
             steps{
                 script{
-                    docker.build("${env.REGISTRY}/${env.IMAGE_NAME}:${env.VERSION}", "./web")
+                    docker.build("${env.REGISTRY}/${env.IMAGE_NAME}:${env.VERSION}")
                 }
             } 
             }
