@@ -11,22 +11,35 @@ pipeline{
 
     stages{
         stage('checkout'){
-            git credentialsId: 'gitcreds', url: 'https://github.com/swamy59/todo-app'
+            steps{
+                git credentialsId: 'gitcreds', url: 'https://github.com/swamy59/todo-app'
+            }
         }
         stage('Install dependencies'){
-            sh 'npm install'
+            steps{
+                sh 'npm install'
+            }
         }
         stage('build'){
-            sh 'npm run bulid'
+            steps{
+                sh 'npm run bulid'
+            }
         }
         stage('file'){
-            docker.build("${env.REGISTRY}/${env.IMAGE_NAME}:${env.VERSION}", "./web") 
+            steps{
+                script{
+                    docker.build("${env.REGISTRY}/${env.IMAGE_NAME}:${env.VERSION}", "./web")
+                }
+            } 
             }
         stage("push"){
-            docker.withRegistry('swamy59', 'Dockercreds') {
+            steps{
+                script{
+                    docker.withRegistry('swamy59', 'Dockercreds') {
                         docker.image("${env.REGISTRY}/${env.IMAGE_NAME}:${env.VERSION}").push()
-        }
-
+                    }
+                }
+            }
         }
         
     }
