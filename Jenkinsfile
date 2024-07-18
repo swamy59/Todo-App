@@ -15,18 +15,6 @@ pipeline{
                 git credentialsId: 'gitcreds', url: 'https://github.com/swamy59/todo-app'
             }
         }
-        stage('Install dependencies'){
-            steps{
-                sh '''
-                cd web
-                npm install'''
-            }
-        }
-        stage('build'){
-            steps{
-                sh 'npm run bulid'
-            }
-        }
         stage('file'){
             steps{
                 script{
